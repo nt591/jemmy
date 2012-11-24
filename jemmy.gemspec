@@ -6,11 +6,14 @@ require 'jemmy/version'
 Gem::Specification.new do |gem|
   gem.name          = "jemmy"
   gem.version       = Jemmy::VERSION
+  gem.executables << 'jemmy'
   gem.authors       = ["Kevin Curtin"]
   gem.email         = ["kevincurtin88@gmail.com"]
   gem.description   = %q{TODO: Write a gem description}
   gem.summary       = %q{TODO: Write a gem summary}
   gem.homepage      = ""
+
+  gem.add_dependency "thor"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

@@ -1,4 +1,4 @@
-require "jemmy/version"
+require "jemmy"
 
 module Jemmy
   # Your code goes here...
