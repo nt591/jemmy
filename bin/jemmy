@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'thor'
+
+require 'jemmy/cli'
+# begin
+#   require 'jemmy'
+# rescue LoadError => e
+# warn 'Could not load "jemmy"'
+#   exit -1
+# end
+
+Jemmy::CLI.start
