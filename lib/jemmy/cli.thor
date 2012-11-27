@@ -27,11 +27,6 @@ module Jemmy
         :author         => git_user_name.empty? ? "TODO: Write your name" : git_user_name,
         :email          => git_user_email.empty? ? "TODO: Write your email address" : git_user_email
       }
-      # def self.source_path
-        # puts File.expand_path(__FILE__)
-        # File.dirname(__FILE__)
-        # ['./templates']
-      # end
       
       template(File.join("newjem/Gemfile.tt"),               File.join(target, "Gemfile"),                opts)
       template(File.join("newjem/Rakefile.tt"),              File.join(target, "Rakefile"),               opts)
