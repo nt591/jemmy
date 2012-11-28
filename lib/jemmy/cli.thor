@@ -4,20 +4,33 @@ module Jemmy
 
     module Thor::Actions
       def source_paths
-        ['./templates']
+        ['./templates', File.dirname(__FILE__)]
       end
+    end
+    def self.source_root
+      File.dirname(__FILE__)
     end
 
     desc "jemmy GEM", "Creates a skeleton for creating a javascript rubygem"
     method_option :bin, :type => :boolean, :default => false, :aliases => '-b', :banner => "Generate a binary for your library."
     method_option :test, :type => :string, :default => nil, :aliases => '-t', :banner => "Generate test directory for your library."
-    def jemmy(name)
+    def jemmy(name, *args)
       name = name.chomp("/") # remove trailing slash if present
       target = File.join(Dir.pwd, "#{name}-rails")
       constant_name = name.split('_').map{|p| p[0..0].upcase + p[1..-1] }.join
       constant_name = constant_name.split('-').map{|q| q[0..0].upcase + q[1..-1] }.join('::') if constant_name =~ /-/
       constant_array = constant_name.split('::')
       FileUtils.mkdir_p(File.join(target, 'lib', name))
+
+      #copy files
+      args.each do |arg|
+        if File.directory?(arg)
+          directory arg, "#{target}/vendor/assets/javascripts/#{arg}"
+        elsif File.exists?(arg)
+          copy_file arg, "#{target}/vendor/assets/javascripts/#{File.basename(arg)}"
+        end
+      end
+
       git_user_name = `git config user.name`.chomp
       git_user_email = `git config user.email`.chomp
       opts = {
